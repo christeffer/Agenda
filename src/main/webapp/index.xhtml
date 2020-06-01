@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Gerenciador de Contatos</title>
+</h:head>
+<h:body>
+	<h1>Gerenciador de Contatos</h1>
+	<h:form>				
+		<p:dataTable id="tableContatos" var="contato" value="#{contatoMB.listarContatos}" filteredValue="#{contatoMB.listaContatosFiltered}" >
+			<p:column headerText="ID">				
+				<h:outputText value="#{contato.id_contato}" />
+			</p:column>
+			<p:column  headerText="Nome" filterBy="#{contato.nome}" filterMatchMode="contains">				
+				<h:outputText value="#{contato.nome}" />
+			</p:column>
+			<p:column headerText="Email">				
+				<h:outputText value="#{contato.email}" />
+			</p:column>
+			<p:column headerText="Telefone">				
+				<h:outputText value="#{contato.telefone}" />
+			</p:column>
+			<p:column headerText="Endereco">				
+				<h:outputText value="#{contato.endereco}" />
+			</p:column>
+			<p:column headerText="Data Nascimento">				
+				<h:outputText value="#{contato.dataNascimento}" />
+			</p:column>
+
+			<p:column headerText="Alterar" style="text-align: center;">				
+				<p:commandButton action="#{contatoMB.preparaAlteracao(contato)}"
+					actionListener="#{contatoMB.preparaAlteracao(contato)}"
+					 icon="ui-icon-pencil" ></p:commandButton>
+			</p:column>
+			<p:column headerText="Excluir" style="text-align: center;">				
+				<p:commandButton action="#{contatoMB.excluirContato()}"
+					 icon="ui-icon-trash" update="tableContatos"></p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<br />
+	<h:form>
+		<p:commandButton action="#{contatoMB.prepararAdicionarContato()}"
+					value="Novo Contato" icon="ui-icon-contact"></p:commandButton>
+		<p:commandButton action="index?faces-redirect=true"
+					value="Atualizar Lista" icon="ui-icon-refresh"></p:commandButton>
+		<p:commandButton action="#{contatoMB.ImprimeContatos()}" value="Imprimir" icon="ui-icon-refresh"/>
+	</h:form>
+</h:body>
+</html>
